@@ -8,4 +8,4 @@ go:
 script:
   - go get github.com/mattn/goveralls
   - go test -v -covermode=count -coverprofile=coverage.out ./...
-  - goveralls -coverprofile=coverage.out -service travis-ci -repotoken N10Aya4dYexJebU4hW6lmBPZChrOzjMpY
+  - goveralls -coverprofile=coverage.out -service travis-ci -repotoken xEcJKuiWmpsRHizKx9Kvyb4dPBkhBO4CU
