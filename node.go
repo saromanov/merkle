@@ -21,7 +21,7 @@ func NewNode(h hash.Hash, block []byte) (Node, error) {
 		return Node{}, errNewNode
 	}
 	defer h.Reset()
-	_, err := h.Write(block[:])
+	_, err := h.Write(block)
 	if err != nil {
 		return Node{}, fmt.Errorf("unable write to hash: %v", err)
 	}
