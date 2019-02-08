@@ -1,5 +1,8 @@
 # merkle
+[![GoDoc](https://godoc.org/github.com/saromanov/merkle?status.png)](https://godoc.org/github.com/saromanov/merkle)
 [![Go Report Card](https://goreportcard.com/badge/github.com/saromanov/merkle)](https://goreportcard.com/report/github.com/saromanov/merkle)
+[![Build Status](https://travis-ci.org/saromanov/merkle.svg?branch=master)](https://travis-ci.org/saromanov/merkle)
+[![Coverage Status](https://coveralls.io/repos/github/saromanov/merkle/badge.svg?branch=master)](https://coveralls.io/github/saromanov/merkle?branch=master)
 
 Implementation of Merkle tree
 
