@@ -118,3 +118,40 @@ func createNodeLevel(below []Node, currentNode []Node, h hash.Hash) (uint64, err
 func getEndTree(t []Node) int {
 	return (len(t) + (len(t) % 2)) / 2
 }
+
+// CalculateHeightAndNodeCount returns height and number of nodes
+func CalculateHeightAndNodeCount(leaves uint64) (height, nodeCount uint64) {
+	height = calculateTreeHeight(leaves)
+	return height, calculateNodeCount(height, leaves)
+}
+
+func calculateNodeCount(height, size uint64) uint64 {
+	if isPowerOfTwo(size) {
+		return 2*size - 1
+	}
+	count := size
+	prev := size
+	i := uint64(1)
+	for ; i < height; i++ {
+		next := (prev + (prev % 2)) / 2
+		count += next
+		prev = next
+	}
+	return count
+}
+
+// calculateTreeHeight provides getting of height of the binary tree
+func calculateTreeHeight(nodeCount uint64) uint64 {
+	if nodeCount == 1 {
+		return 2
+	}
+	if nodeCount == 0 {
+		return nodeCount
+	}
+	return logBaseTwo(nextPowerOfTwo(nodeCount)) + 1
+}
+
+// isPowerOfTwo returns true if n is power of 2
+func isPowerOfTwo(n uint64) bool {
+	return n != 0 && (n&(n-1)) == 0
+}
