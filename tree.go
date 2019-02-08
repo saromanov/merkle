@@ -61,8 +61,8 @@ func (t *Tree) Generate(blocks [][]byte, hashf hash.Hash) error {
 		currentNode = currentNode[wrote:]
 	}
 
-	t.Nodes = nodes
 	t.Levels = levels
+	t.Nodes = nodes
 	return nil
 }
 
@@ -79,20 +79,18 @@ func makeNodes(nodeCount uint64, hashf hash.Hash, blocks [][]byte) ([]Node, erro
 	return nodes, nil
 }
 
-func createNodeLevel(below []Node, current []Node,
-	h hash.Hash) (uint64, error) {
+func createNodeLevel(below []Node, currentNode []Node, h hash.Hash) (uint64, error) {
+
 	h.Reset()
 	size := h.Size()
 	data := make([]byte, size*2)
-	end := (len(below) + (len(below) % 2)) / 2
+	end := getEndTree(below)
 	for i := 0; i < end; i++ {
-		// Concatenate the two children hashes and hash them, if both are
-		// available, otherwise reuse the hash from the lone left node
 		node := Node{}
 		ileft := 2 * i
 		iright := 2*i + 1
 		left := &below[ileft]
-		var right *Node = nil
+		var right *Node
 		if len(below) > iright {
 			right = &below[iright]
 		}
@@ -109,13 +107,14 @@ func createNodeLevel(below []Node, current []Node,
 				return 0, err
 			}
 		}
-		// Point the new node to its children and save
 		node.Left = left
 		node.Right = right
-		current[i] = node
-
-		// Reset the data slice
+		currentNode[i] = node
 		data = data[:]
 	}
 	return uint64(end), nil
+}
+
+func getEndTree(t []Node) int {
+	return (len(t) + (len(t) % 2)) / 2
 }
