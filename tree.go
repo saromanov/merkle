@@ -3,6 +3,7 @@ package merkle
 import (
 	"errors"
 	"hash"
+	"math"
 )
 
 var errEmptyTree = errors.New("tree is empty")
@@ -148,7 +149,7 @@ func calculateTreeHeight(nodeCount uint64) uint64 {
 	if nodeCount == 0 {
 		return nodeCount
 	}
-	return logBaseTwo(nextPowerOfTwo(nodeCount)) + 1
+	return uint64(math.Log2(float64(nextPowerOfTwo(nodeCount)))) + 1
 }
 
 // isPowerOfTwo returns true if n is power of 2
